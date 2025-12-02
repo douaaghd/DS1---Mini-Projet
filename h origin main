@@ -1,0 +1,3 @@
+[33m2b939fc[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m)[m Add user controller with signup and login
+[33m1020119[m[33m ([m[1;31morigin/main[m[33m)[m Create User model with password hashing
+[33m81d7059[m Init project + install dependencies + connect MongoDB
