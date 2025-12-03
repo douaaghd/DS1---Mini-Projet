@@ -1,7 +1,7 @@
 const Task = require("../models/Task");
 const Project = require("../models/Project");
 
-// Créer une nouvelle tâche
+// CREATE tache jdida
 const createTask = async (req, res) => {
   try {
     const { titre, description, statut, deadline, projectId, assignedTo } = req.body;
@@ -12,7 +12,7 @@ const createTask = async (req, res) => {
       return res.status(404).json({ message: "Projet non trouvé" });
     }
 
-    // Seul le manager peut assigner une tâche à quelqu'un
+    // ken manager inajem yaati task
     if (assignedTo && req.user.role !== "manager") {
       return res.status(403).json({ message: "Seul le manager peut assigner une tâche" });
     }

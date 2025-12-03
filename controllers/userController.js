@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken');
 require('dotenv').config();
 
 // Fonction pour créer un token JWT
-const generateToken = (user) => {       //fih id user w role donc lsecurite makhir token expire baaed 1jour
+const generateToken = (user) => {        //fih id user w role donc lsecurite makhir token expire baaed 1jour
   return jwt.sign(
     { id: user._id, role: user.role },
     process.env.JWT_SECRET,
