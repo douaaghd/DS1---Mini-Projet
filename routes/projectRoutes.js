@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const { createProject, getProjects, getProjectById } = require("../controllers/projectController");
-const authMiddleware = require("../middleware/authMiddleware");
+const authMiddleware = require("../middlewares/authMiddleware");
 
 // Routes pour créer projet – l'utilisateur lezmou iconnecti
 router.post("/", authMiddleware, createProject);

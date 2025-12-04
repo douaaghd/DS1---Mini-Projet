@@ -9,7 +9,7 @@ const createProject = async (req, res) => {
       nom,
       description,
       statut: statut || "en cours", 
-      owner: req.user._id, // iji projet eli tebaa user eli connecta 
+      owner: req.user.id, // iji projet eli tebaa user eli connecta 
     });
 
     res.status(201).json(projet);
@@ -46,4 +46,4 @@ const getProjectById = async (req, res) => {
   }
 };
 
-module.exports = { createProject };
+module.exports = { createProject, getProjects, getProjectById };
