@@ -45,5 +45,69 @@ const getProjectById = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+// UPDATE = Modifier projet
+const updateProject = async (req, res) => {
+  try {
+    const projectId = req.params.id;
 
-module.exports = { createProject, getProjects, getProjectById };
+    // njiibou projet mel base
+    const projet = await Project.findById(projectId);
+
+    if (!projet) {
+      return res.status(404).json({ message: "Projet introuvable" });
+    }
+
+    // ken user moch manager w moch howa el owner → ma najmouch yaamel update
+    if (req.user.role !== "manager" && projet.owner.toString() !== req.user._id) {
+      return res.status(403).json({ message: "Accès refusé. Vous ne pouvez modifier que vos projets." });
+    }
+
+    // Modifier
+    const updated = await Project.findByIdAndUpdate(
+      projectId,
+      req.body,
+      { new: true } // traja3lek el version jdida
+    );
+
+    res.json(updated);
+
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+// DELETE = Supprimer projet
+const deleteProject = async (req, res) => {
+  try {
+    const projectId = req.params.id;
+
+    // njiibou projet mel base
+    const projet = await Project.findById(projectId);
+
+    // ken mafama chay
+    if (!projet) {
+      return res.status(404).json({ message: "Projet introuvable" });
+    }
+
+    // 2. vérification des permissions
+    // manager → ynajjem yfasakh ay projet
+    // user normal → yfasakh ken projet mte3ou
+    if (req.user.role !== "manager" && projet.owner.toString() !== req.user._id.toString()) {
+      return res.status(403).json({
+        message: "Accès refusé. Tnajjem tfasakh ken les projets mte3ek."
+      });
+    }
+
+    // 3. suppression (remove maadech ikhdem, nistaamlou findByIdAndDelete)
+    await Project.findByIdAndDelete(projectId);
+
+    // 4. réponse
+    res.json({ message: "Projet supprimé avec succès" });
+
+  } catch (error) {
+    // Erreur serveur
+    res.status(500).json({ message: error.message });
+  }
+};
+
+module.exports = { createProject, getProjects, getProjectById, updateProject, deleteProject
+};
