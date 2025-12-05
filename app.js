@@ -14,6 +14,9 @@ app.use('/api/users', userRoutes);
 const projectRoutes = require('./routes/projectRoutes');
 app.use('/api/projects', projectRoutes);
 
+const taskRoutes = require('./routes/taskRoutes');
+app.use('/api/tasks', taskRoutes);
+
 // Route test
 app.get('/', (req, res) => {
   res.send('API DS1 Projet fonctionne ! ');
